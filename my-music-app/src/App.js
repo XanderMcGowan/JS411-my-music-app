@@ -1,25 +1,34 @@
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import { useState } from 'react'
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import { useState } from "react";
+
+
+import { DashBoard }  from "./components/DashBoard";
+import { TopBar } from "./components/TopBar";
 
 function App() {
-  const [loggedIn, setloggedIn] = useState(false)
+  const [visible, setVisible] = useState(true)
+   const [isToggled, setIsToggled] = useState(false);
 
-  return (
-    <div className="App" style={ {display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
-      <div style={{backgroundColor:'#118AB2'}}>
-        <h1>My music app</h1>
-      </div>
-      <div style={{width:'25vw', display: 'inline-block'}}>
+   const removeElement = () => {
+    setVisible((prev) => !prev)
+    setIsToggled((prev) => !prev);
+  };
 
-      <TextField id="filled-basic" label="Username" variant="filled" />
-      <br></br>
-      <TextField id="filled-basic" label="Password" variant="filled" />
-      <br></br>
-      <Button variant="contained">Submit</Button>
-      </div>
+   return (
+    <div className="App" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+      <TopBar></TopBar>
+      {visible && (
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+           <TextField id="outlined-basic" label="Username" variant="outlined" />
+           <TextField id="outlined-basic" label="Password" variant="outlined" />
+           <Button style={{backgroundColor: '#F1DABF'}} onClick={removeElement} variant="contained">Submit</Button>
+         </div>
+      )}
+      { isToggled && <DashBoard />} 
     </div>
-  );
+
+   );
 }
 
 export default App;
